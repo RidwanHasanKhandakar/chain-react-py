@@ -26,4 +26,10 @@ while True:
         print(f"Plz enter a number between {minplayer} and {maxplayer}.")
     except ValueError:
         print("Plz enter a valid integer!!")
+#list for storing player names
+playernames = []
+for i in range(noplayers):
+    name=input(f"Enter name for player {i+1}: ").strip()
+    #adding name to list but if there is no name then [player x]
+    playernames.append(name if name else f"Player {i+1}")
 

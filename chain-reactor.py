@@ -96,3 +96,7 @@ def drawGrid(currentIndex): #-> draw the game grid line
         # Draw a horizontal line at position r (separates rows)
         # Uses current player's color, across the entire width
         pygame.draw.line(display,players[currentIndex],(0,top_offset+r),(width,top_offset+r))
+def drawCurrentPlayerName(currentIndex): 
+    txt=font.render(f"Turn: {playernames[currentIndex]}",True,white) #->txt showing current player name
+    txt_rect=txt.get_rect(center=(width//2,top_offset//2)) #-> get the rect that contains the text so we can pos it
+    display.blit(txt,txt_rect) #-> draw the text on the screen at the centered pos

@@ -84,3 +84,15 @@ def initGrid(): #-> creates a fresh grid for a new game
     for i in range(cols):
         for j in range(rows):
             grid[i][j].addnghbr(i,j) #-> For each Spot, find its neighboring cells
+def drawGrid(currentIndex): #-> draw the game grid line
+    r=0 #-> init row position to 0
+    c=0 #-> init col position to 0
+    for i in range(cols): #-> loop through each col
+        r+=blocks #-> move row pos dwn by one blc
+        c+=blocks #-> move col pos rght by one blc
+        # Draw a vertical line at position c (separates columns)
+        # Uses current player's color, from top_offset to bottom of screen
+        pygame.draw.line(display,players[currentIndex],(c,top_offset),(c,height))
+        # Draw a horizontal line at position r (separates rows)
+        # Uses current player's color, across the entire width
+        pygame.draw.line(display,players[currentIndex],(0,top_offset+r),(width,top_offset+r))

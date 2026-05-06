@@ -100,3 +100,8 @@ def drawCurrentPlayerName(currentIndex):
     txt=font.render(f"Turn: {playernames[currentIndex]}",True,white) #->txt showing current player name
     txt_rect=txt.get_rect(center=(width//2,top_offset//2)) #-> get the rect that contains the text so we can pos it
     display.blit(txt,txt_rect) #-> draw the text on the screen at the centered pos
+def addOrb(i,j,color):
+    grid[i][j].noOrbs+=1 #-> add one orb to the cell
+    grid[i][j].color=color #-> change the cell color to the player's color
+    if grid[i][j].noOrbs>=len(grid[i][j].nghbr): #-> if the number of orbs in the cell is greater than or equal to the number of neighbors
+        overFlow(grid[i][j],color)#-> add an orb to each neighboring cell (this can cause a chain reaction)

@@ -15,3 +15,15 @@ yellow=(244,208,63)
 #list for all player colors in order
 playercolor = [red,green,violet,yellow]
 minplayer,maxplayer=2,4
+
+while True:
+    try:
+        noplayers=int(input(f"Enter number of players ({minplayer}-{maxplayer}): ").strip())
+        #checks if entered number is within valid range
+        if minplayer<=noplayers<=maxplayer:
+            #if valid breaks out of the loop
+            break
+        print(f"Plz enter a number between {minplayer} and {maxplayer}.")
+    except ValueError:
+        print("Plz enter a valid integer!!")
+

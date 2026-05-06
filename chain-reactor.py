@@ -54,3 +54,18 @@ grid=[] #-> create an empty list that will store the game grid cells
 def close(): #-> when user wants to exit.
     pygame.quit() #-> quit pygame 
     sys.exit() #-> exits the entire python program.
+class Spot(): #-> each cell in the game grid is a spot object
+    def __init__(self): #-> when a new spot object is created
+        self.color=border 
+        self.nghbr=[] #-> for neighboring cells
+        self.noOrbs=0
+    def addnghbr(self,i,j): #-> to find and store [up,down,left,right]
+        if i>0: #-> check if there's a cell above 
+            self.nghbr.append(grid[i-1][j]) #-> then add the cell above
+        if i<cols-1: #-> check if there's a cell below
+            self.nghbr.append(grid[i+1][j]) #-> then add the cell below
+        if j<rows-1: #-> check if there's a cell right
+            self.nghbr.append(grid[i][j+1]) #-> then add the cell right
+        if j>0: #-> check if there's a cell left
+            self.nghbr.append(grid[i][j-1]) #-> then add the cell left
+

@@ -32,4 +32,10 @@ for i in range(noplayers):
     name=input(f"Enter name for player {i+1}: ").strip()
     #adding name to list but if there is no name then [player x]
     playernames.append(name if name else f"Player {i+1}")
+#pygame initialization
+pygame.init()
+display = pygame.display.set_mode((width,height)) #-> created the game window with width & height
+clock = pygame.time.Clock() #-> This is for to control the frame rate
+font = pygame.font.SysFont("Impact",25)
+pygame.display.set_caption("Chain Reaction %d Player" % noplayers) #-> Title for the game window
 

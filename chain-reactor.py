@@ -68,4 +68,19 @@ class Spot(): #-> each cell in the game grid is a spot object
             self.nghbr.append(grid[i][j+1]) #-> then add the cell right
         if j>0: #-> check if there's a cell left
             self.nghbr.append(grid[i][j-1]) #-> then add the cell left
-
+def initGrid(): #-> creates a fresh grid for a new game
+    global grid,score,players 
+    score=[] #-> creates fresh scr list for new game
+    for i in range(noplayers): #-> loop through each player and reset their scr to 0
+        score.append(0)
+    players=[] #-> creates fresh color list for new game
+    for i in range(noplayers): #-> loop thorugh each color and assign their color
+        players.append(playercolor[i])
+    grid=[[]for _ in range(cols)] #-> creates a grid of empty lists [one list per cols]
+    for i in range(cols): #-> Outer loop: go through each column
+        for j in range(rows): #-> Inner loop: go through each row
+            newObj=Spot() #-> Create a new Spot object for this grid position
+            grid[i].append(newObj) #-> Add this Spot to the grid at position [i][j]
+    for i in range(cols):
+        for j in range(rows):
+            grid[i][j].addnghbr(i,j) #-> For each Spot, find its neighboring cells

@@ -38,4 +38,16 @@ display = pygame.display.set_mode((width,height)) #-> created the game window wi
 clock = pygame.time.Clock() #-> This is for to control the frame rate
 font = pygame.font.SysFont("Impact",25)
 pygame.display.set_caption("Chain Reaction %d Player" % noplayers) #-> Title for the game window
-
+#grids
+blocks = 40 #-> the size of each grid cell in pixels
+top_offset = 40 #-> the header area for player names
+scr=[] #-> to store game scores for each players
+for i in range(noplayers):
+    scr.append(0)
+players=[] #-> for storeing player colors
+for i in range (noplayers):
+    players.append(playercolor[i])
+d=blocks//2-2 #-> calculates the diameter of orbs based on blck sixe
+cols=int(width//blocks) #-> number of cols in the grid 
+rows=int((height-top_offset)//blocks) #-> number of rows [top offset is the header so it's needs to minused]
+grid=[] #-> create an empty list that will store the game grid cells

@@ -51,3 +51,6 @@ d=blocks//2-2 #-> calculates the diameter of orbs based on blck sixe
 cols=int(width//blocks) #-> number of cols in the grid 
 rows=int((height-top_offset)//blocks) #-> number of rows [top offset is the header so it's needs to minused]
 grid=[] #-> create an empty list that will store the game grid cells
+def close(): #-> when user wants to exit.
+    pygame.quit() #-> quit pygame 
+    sys.exit() #-> exits the entire python program.

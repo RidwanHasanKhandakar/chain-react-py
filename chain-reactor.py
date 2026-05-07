@@ -156,6 +156,22 @@ def isPlayerInGame(): #-> Counts how many Orbs each player has on the grid and u
                 if grid[i][j].color==players[k]: #-> if the cell color matches the player's color
                     playerScore[k]+=grid[i][j].noOrbs #-> add the number of Orbs in that cell to the player's score
     score=playerScore[:] #-> update the global score list with the new scores
+def gameOver(playerIndex):
+    while True:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                close()
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_q:
+                    close()
+                if event.key==pygame.K_r:
+                    gameLoop()
+        txt=font.render(f"{playernames[playerIndex]} WON!",True,white)
+        txt2=font.render(f"Press 'r' to Reset!!",True,white)
+        display.blit(txt,(width/3,height/3))
+        display.blit(txt2,(width/3,height/2))
+        pygame.display.update()
+        clock.tick(60)
 def checkWon():
     num=0
     for i in range(noplayers):
@@ -177,7 +193,7 @@ def gameLoop():
             if event.type==pygame.QUIT:
                 close()
             if event.type==pygame.KEYDOWN:
-                if event.key==pygame.k_q:
+                if event.key==pygame.K_q:
                     close()
             if event.type==pygame.MOUSEBUTTONDOWN:
                 x,y=pygame.mouse.get_pos()

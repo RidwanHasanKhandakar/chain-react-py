@@ -157,3 +157,40 @@ def isPlayerInGame(): #-> Counts how many Orbs each player has on the grid and u
                     playerScore[k]+=grid[i][j].noOrbs #-> add the number of Orbs in that cell to the player's score
     score=playerScore[:] #-> update the global score list with the new scores
 
+def gameLoop():
+    initGrid()
+    loop=True
+    turns=0
+    currentPlayer=0
+    vibrate=.5
+    while loop:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                close()
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.k_q:
+                    close()
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                x,y=pygame.mouse.get_pos()
+                if y>=top_offset:
+                    i=x//blocks
+                    j=(y-top_offset)//blocks
+                    if grid[i][j].color==players[currentPlayer]or grid[i][j].color==border:
+                        turns+=1
+                        addOrb(i,j,players[currentPlayer])
+                        currentPlayer+=1
+                        if currentPlayer>=noplayers:
+                            currentPlayer=0
+                    if turns>=noplayers:
+                        isPlayerInGame()
+        display.fill(background)
+        vibrate*=-1
+        drawGrid(currentPlayer)
+        showPresentGrid(vibrate)
+        drawCurrentPlayerName(currentPlayer)
+        pygame.display.update()
+        res=checkWon()
+        if res<9999:
+            gameOver(res)
+        clock.tick(20)
+gameLoop()

@@ -156,7 +156,16 @@ def isPlayerInGame(): #-> Counts how many Orbs each player has on the grid and u
                 if grid[i][j].color==players[k]: #-> if the cell color matches the player's color
                     playerScore[k]+=grid[i][j].noOrbs #-> add the number of Orbs in that cell to the player's score
     score=playerScore[:] #-> update the global score list with the new scores
-
+def checkWon():
+    num=0
+    for i in range(noplayers):
+        if score[i]==0:
+            num+=1
+    if num==noplayers-1:
+        for i in range(noplayers):
+            if score[i]:
+                return i
+    return 9999
 def gameLoop():
     initGrid()
     loop=True

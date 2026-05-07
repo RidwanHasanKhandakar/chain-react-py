@@ -109,14 +109,15 @@ def showPresentGrid(vibrate=1):
         c=-blocks
         for j in range(rows):
             c+=blocks
-            if grid[i][j].noOrbs==0:
+            if grid[i][j].noOrbs==0: #-> check if this cell has 0 atoms
                 grid[i][j].color=border
-            elif grid[i][j].noOrbs==1:
-                pygame.draw.ellipse(display,grid[i][j].color,(r+blocks/2-d/2+vibrate,c+blocks/2-d/2+top_offset,d,d))
-            elif grid[i][j].noOrbs==2:
-                pygame.draw.ellipse(display,grid[i][j].color,(r+5,c+blocks/2-d/2-vibrate+top_offset,d,d))
-                pygame.draw.ellipse(display,grid[i][j].color,(r+d/2+blocks/2-d/2+vibrate,c+blocks/2-d/2+top_offset,d,d))
-            elif grid[i][j].noOrbs==3:
+            elif grid[i][j].noOrbs==1: #-> check if this cell has 1 atoms
+                pygame.draw.ellipse(display,grid[i][j].color,(r+blocks/2-d/2+vibrate,c+blocks/2-d/2+top_offset,d,d)) #-> pos includes vibrate to make it shake slightly
+            elif grid[i][j].noOrbs==2: #-> check if this cell has 2 atoms
+                pygame.draw.ellipse(display,grid[i][j].color,(r+5,c+blocks/2-d/2-vibrate+top_offset,d,d)) #-> draw first Orb on left side
+                pygame.draw.ellipse(display,grid[i][j].color,(r+d/2+blocks/2-d/2+vibrate,c+blocks/2-d/2+top_offset,d,d)) #-> draw second Orb on right side
+            elif grid[i][j].noOrbs==3: #-> check if this cell has 3 atoms
+                #-> Using trigonometry to pos Orbs in a triangle pattern
                 #first Orb at 90 degree [top]
                 angle=90
                 x=r+(d/2)*cos(radians(angle))+blocks/2-d/2
@@ -130,17 +131,29 @@ def showPresentGrid(vibrate=1):
                 x=r+(d/2)*cos(radians(angle-90))+blocks/2-d/2
                 y=c+(d/2)*sin(radians(angle-90))+5+top_offset
                 pygame.draw.ellipse(display,grid[i][j].color,(x-vibrate,y,d,d))
-        pygame.display.update()
+        pygame.display.update() #-> update  the display to show all the drawn Orbs
 def addOrb(i,j,color):
     grid[i][j].noOrbs+=1 #-> add one orb to the cell
     grid[i][j].color=color #-> change the cell color to the player's color
     if grid[i][j].noOrbs>=len(grid[i][j].nghbr): #-> if the number of orbs in the cell is greater than or equal to the number of neighbors
         overFlow(grid[i][j],color)#-> add an orb to each neighboring cell (this can cause a chain reaction)
-def overFlow(cell,color):
-    showPresentGrid()
-    cell.noOrbs=0
-    for m in range(len(cell.nghbr)):
-        cell.nghbr[m].noOrbs+=1
-        cell.nghbr[m].color=color
-        if cell.nghbr[m].noOrbs>=len(cell.nghbr[m].nghbr):
-            overFlow(cell.nghbr[m],color)
+def overFlow(cell,color): #-> what happens when a cell has too many Orbs
+    showPresentGrid() #-> redraw the grid to show the current state
+    cell.noOrbs=0 #-> Reset the current cell's Orbs to 0 (they all explode)
+    for m in range(len(cell.nghbr)): #-> loop through each neighbor cell
+        cell.nghbr[m].noOrbs+=1 #-> add 1 atom to each neighbor cell
+        cell.nghbr[m].color=color #-> change the nghbr color to the player's color
+        if cell.nghbr[m].noOrbs>=len(cell.nghbr[m].nghbr): #-> check if the nghbr cell has too many Orbs
+            overFlow(cell.nghbr[m],color) #-> if yes, recursion for that nghbr
+def isPlayerInGame(): #-> Counts how many Orbs each player has on the grid and updates the score list
+    global score 
+    playerScore=[] #-> create an empty list to store the score for each player
+    for i in range(noplayers): #-> initialize each player's score to 0
+        playerScore.append(0)
+    for i in range(cols): #-> loop through each cols in the grid
+        for j in range(rows): #-> loop through each rows in the grid
+            for k in range(noplayers): #-> loop through each player to check if the cell belongs to them
+                if grid[i][j].color==players[k]: #-> if the cell color matches the player's color
+                    playerScore[k]+=grid[i][j].noOrbs #-> add the number of Orbs in that cell to the player's score
+    score=playerScore[:] #-> update the global score list with the new scores
+

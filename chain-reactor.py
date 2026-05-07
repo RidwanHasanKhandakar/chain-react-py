@@ -136,3 +136,11 @@ def addOrb(i,j,color):
     grid[i][j].color=color #-> change the cell color to the player's color
     if grid[i][j].noOrbs>=len(grid[i][j].nghbr): #-> if the number of orbs in the cell is greater than or equal to the number of neighbors
         overFlow(grid[i][j],color)#-> add an orb to each neighboring cell (this can cause a chain reaction)
+def overFlow(cell,color):
+    showPresentGrid()
+    cell.noOrbs=0
+    for m in range(len(cell.nghbr)):
+        cell.nghbr[m].noOrbs+=1
+        cell.nghbr[m].color=color
+        if cell.nghbr[m].noOrbs>=len(cell.nghbr[m].nghbr):
+            overFlow(cell.nghbr[m],color)

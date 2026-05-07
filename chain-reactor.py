@@ -100,6 +100,37 @@ def drawCurrentPlayerName(currentIndex):
     txt=font.render(f"Turn: {playernames[currentIndex]}",True,white) #->txt showing current player name
     txt_rect=txt.get_rect(center=(width//2,top_offset//2)) #-> get the rect that contains the text so we can pos it
     display.blit(txt,txt_rect) #-> draw the text on the screen at the centered pos
+def showPresentGrid(vibrate=1):
+    r=-blocks
+    c=-blocks
+    padding=2
+    for i in range(cols):
+        r+=blocks
+        c=-blocks
+        for j in range(rows):
+            c+=blocks
+            if grid[i][j].noOrbs==0:
+                grid[i][j].color=border
+            elif grid[i][j].noOrbs==1:
+                pygame.draw.ellipse(display,grid[i][j].color,(r+blocks/2-d/2+vibrate,c+blocks/2-d/2+top_offset,d,d))
+            elif grid[i][j].noOrbs==2:
+                pygame.draw.ellipse(display,grid[i][j].color,(r+5,c+blocks/2-d/2-vibrate+top_offset,d,d))
+                pygame.draw.ellipse(display,grid[i][j].color,(r+d/2+blocks/2-d/2+vibrate,c+blocks/2-d/2+top_offset,d,d))
+            elif grid[i][j].noOrbs==3:
+                #first Orb at 90 degree [top]
+                angle=90
+                x=r+(d/2)*cos(radians(angle))+blocks/2-d/2
+                y=c+(d/2)*sin(radians(angle))+blocks/2-d/2+top_offset
+                pygame.draw.ellipse(display,grid[i][j].color,(x-vibrate,y,d,d))
+                #second Orb at 90+90 = 180 degree [left side]
+                x=r+(d/2)*cos(radians(angle+90))+blocks/2-d/2
+                y=c+(d/2)*sin(radians(angle+90))+5+top_offset
+                pygame.draw.ellipse(display,grid[i][j].color,(x+vibrate,y,d,d))
+                #third Orb at 90-90 = 0 degree [right side]
+                x=r+(d/2)*cos(radians(angle-90))+blocks/2-d/2
+                y=c+(d/2)*sin(radians(angle-90))+5+top_offset
+                pygame.draw.ellipse(display,grid[i][j].color,(x-vibrate,y,d,d))
+        pygame.display.update()
 def addOrb(i,j,color):
     grid[i][j].noOrbs+=1 #-> add one orb to the cell
     grid[i][j].color=color #-> change the cell color to the player's color

@@ -1,10 +1,11 @@
 import pygame
 import sys
 from math import * # for math functions
-width=400 #-> game window width
-height=400 #-> game window height
+width=600 #-> game window width
+height=600 #-> game window height
 background=(0,0,0) #-> all black
-border=(208,211,212) #-> border color as light gray for grid lines
+border=(0,0,0)
+#border=(208,211,212) #-> border color as light gray for grid lines
 #text color
 white=(244,246,247)
 #player colors
@@ -195,6 +196,8 @@ def gameLoop():
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_q:
                     close()
+                if event.key==pygame.K_r:
+                    gameLoop()
             if event.type==pygame.MOUSEBUTTONDOWN:
                 x,y=pygame.mouse.get_pos()
                 if y>=top_offset:

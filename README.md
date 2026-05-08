@@ -149,20 +149,6 @@ Planned upgrades:
 - Modular architecture
 - Web version using HTML/CSS/JavaScript
 
----
-
-## 📸 Screenshots
-
-_Add screenshots here later._
-
-Example:
-
-```md
-<img width="1457" height="1000" alt="Screenshot 2026-05-07 223959" src="https://github.com/user-attachments/assets/51e89c0d-1f36-4d74-bae8-d96b32afd089" />
-
-```
-
----
 
 ## 👨‍💻 Author
 

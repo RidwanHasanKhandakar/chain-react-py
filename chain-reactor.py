@@ -1,8 +1,8 @@
 import pygame
 import sys
 from math import * # for math functions
-width=600 #-> game window width
-height=600 #-> game window height
+width=400 #-> game window width
+height=400 #-> game window height
 background=(0,0,0) #-> all black
 border=(0,0,0)
 #border=(208,211,212) #-> border color as light gray for grid lines
@@ -38,7 +38,7 @@ pygame.init()
 display = pygame.display.set_mode((width,height)) #-> created the game window with width & height
 clock = pygame.time.Clock() #-> This is for to control the frame rate
 font = pygame.font.SysFont("Impact",25)
-pygame.display.set_caption("Chain Reaction %d Player" % noplayers) #-> Title for the game window
+pygame.display.set_caption("Chain Reaction %d Player made by rrhin" % noplayers) #-> Title for the game window
 #grids
 blocks = 40 #-> the size of each grid cell in pixels
 top_offset = 40 #-> the header area for player names
